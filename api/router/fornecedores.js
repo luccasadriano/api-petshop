@@ -7,7 +7,8 @@ router.get('/', async (req, res) => {
    const resultados = await table.listar()
    res.status(200)
    const serializador = new SerializadorFornecedor(
-      res.getHeader('Content-Type')
+      res.getHeader('Content-Type'),
+      ['email', 'dataCraiacao', 'dataAtualizacao', 'versao']
    )
    res.send(
       serializador.serializar(resultados)
@@ -38,7 +39,8 @@ router.get('/:idFornecedor', async (req, res, next) => {
       await fornecedor.carregar()
       res.status(200)
       const serializador = new SerializadorFornecedor(
-         res.getHeader('Content-Type')
+         res.getHeader('Content-Type'),
+         ['email', 'dataCraiacao', 'dataAtualizacao', 'versao']
       )
       res.send(
          serializador.serializar(fornecedor)
